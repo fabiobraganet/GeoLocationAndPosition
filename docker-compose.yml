@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  geolocationandposition.service:
+    image: ${DOCKER_REGISTRY-}geolocationandpositionservice
+    build:
+      context: .
+      dockerfile: src/Services/GeoLocationAndPosition.Service/Dockerfile
+
+  geolocationandposition.webapp:
+    image: ${DOCKER_REGISTRY-}geolocationandpositionwebapp
+    build:
+      context: .
+      dockerfile: src/Apps/GeoLocationAndPosition.WebApp/Dockerfile
+

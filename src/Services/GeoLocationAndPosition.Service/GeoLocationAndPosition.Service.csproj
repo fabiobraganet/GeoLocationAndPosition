@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>5d60014b-17f2-4ab8-bf62-bb065bdf50e3</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.24.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Application\GeoLocationAndPosition.Application.csproj" />
+    <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Data\GeoLocationAndPosition.Data.csproj" />
+    <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Domain\GeoLocationAndPosition.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
