@@ -2,19 +2,20 @@ version: '3.4'
 
 services:
 
-  db:
-    image: kartoza/postgis:12.0
+  geolocationandposition.dbgis:
     volumes:
       - postgis-data:/var/lib/postgresql
       - dbbackups:/backups
     environment:
-      - POSTGRES_DB=gis
+      - POSTGRES_DB=dbgis
       - POSTGRES_USER=docker
       - POSTGRES_PASS=docker
       - ALLOW_IP_RANGE=0.0.0.0/0
       - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology
     ports:
       - 25432:5432
+    networks:
+      - backend
     restart: on-failure
     healthcheck:
       test: "exit 0"
@@ -24,23 +25,38 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - "5000:80"
+      - "5001:443"
+    networks:
+      - backend
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - geolocationandposition.dbgis
 
   geolocationandposition.webapp:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - "8090:80"
+      - "44390:443"
+    networks:
+      - frontend
+      - backend
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - geolocationandposition.service
 
 volumes:
   dbbackups:
   postgis-data:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

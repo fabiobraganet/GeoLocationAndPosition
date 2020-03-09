@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Áreas";
+}
+
+<div class="text-left">
+    <h4 class="display-4">Gerenciamento de Áreas</h4>
+    <p>use este para gerenciar suas areas</p>
+    <div id="jsGrid"></div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+
+            $("#jsGrid").jsGrid({
+                height: "500px",
+                width: "100%",
+                filtering: true,
+                editing: true,
+                inserting: true,
+                sorting: true,
+                paging: true,
+                autoload: true,
+                pageSize: 6,
+                pageButtonCount: 5,
+                deleteConfirm: "Do you really want to delete the client?",
+                controller: areaController,
+                fields: [
+                    { name: "name", type: "text", title: "Nome da área", width: 200 },
+                    {
+                        name: "kml",
+                        title: "KML Upload",
+                        itemTemplate: function (val, item) {
+                            return $("<img>").attr("src", val).css({ height: 50, width: 50 });
+                        },
+                        insertTemplate: function () {
+                            var insertControl = this.insertControl = $("<input>").prop("type", "file");
+                            return insertControl;
+                        },
+                        insertValue: function () {
+                            return this.insertControl[0].files[0];
+                        },
+                        editTemplate: function (value) {
+                            var editControl = this.editControl = $("<input>").prop("type", "file");
+                            return editControl;
+                        },
+                        editValue: function () {
+                            return this.editControl[0].files[0];
+                        }
+                    },
+                    { type: "control" }
+                ],
+                pagerFormat: "Páginas: {first} {prev} {pages} {next} {last}    {pageIndex} de {pageCount}",
+                pagePrevText: "Anterior",
+                pageNextText: "Próxima",
+                pageFirstText: "Primeira",
+                pageLastText: "Ultima",
+                pageNavigatorNextText: "...",
+                pageNavigatorPrevText: "...",
+            });
+
+        });
+
+        (function () {
+
+            var areaController = {
+
+                loadData: function (filter) {
+                    return $.ajax({
+                        type: "GET",
+                        url: "/api/v1/area",
+                        data: filter,
+                        async: true,
+                        dataType: "json",
+                        success: function (result) { },
+                        error: function (er) { }
+                    });
+                },
+
+                insertItem: function (item) {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/api/v1/area",
+                        data: item,
+                        async: true,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (result) { },
+                        error: function (er) { }
+                    });
+                },
+
+                updateItem: function (item) {
+                    var form_data = new FormData();
+                    form_data.append("Id", item.id);
+                    form_data.append("Name", item.name);
+                    form_data.append("Kml", item.kml);
+
+                    return $.ajax({
+                        type: "PUT",
+                        url: "/api/v1/area",
+                        data: form_data,
+                        async: true,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (result) { },
+                        error: function (er) { }
+                    });
+                },
+
+                deleteItem: function (item) {
+                    return $.ajax({
+                        type: "DELETE",
+                        url: "/api/v1/area",
+                        data: item,
+                        async: true,
+                        dataType: "json",
+                        success: function (result) { },
+                        error: function (er) { }
+                    });
+                },
+
+            };
+
+            window.areaController = areaController;
+        }());
+
+    </script>
+}

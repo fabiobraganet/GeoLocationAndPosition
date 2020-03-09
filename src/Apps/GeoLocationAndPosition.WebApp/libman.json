@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jsgrid@1.5.3",
+      "destination": "wwwroot/jsgrid/"
+    }
+  ]
+}

@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Application\GeoLocationAndPosition.Application.csproj" />
     <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Data\GeoLocationAndPosition.Data.csproj" />
     <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.Domain\GeoLocationAndPosition.Domain.csproj" />
+    <ProjectReference Include="..\..\Libraries\GeoLocationAndPosition.DTO\GeoLocationAndPosition.DTO.csproj" />
   </ItemGroup>
 
 </Project>

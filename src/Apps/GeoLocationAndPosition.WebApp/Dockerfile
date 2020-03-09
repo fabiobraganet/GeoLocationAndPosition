@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/Apps/GeoLocationAndPosition.WebApp/GeoLocationAndPosition.WebApp.csproj", "src/Apps/GeoLocationAndPosition.WebApp/"]
+COPY ["src/Libraries/GeoLocationAndPosition.DTO/GeoLocationAndPosition.DTO.csproj", "src/Libraries/GeoLocationAndPosition.DTO/"]
 RUN dotnet restore "src/Apps/GeoLocationAndPosition.WebApp/GeoLocationAndPosition.WebApp.csproj"
 COPY . .
 WORKDIR "/src/src/Apps/GeoLocationAndPosition.WebApp"

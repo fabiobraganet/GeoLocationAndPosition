@@ -1,14 +1,24 @@
 version: '3.4'
 
 services:
+
+  geolocationandposition.dbgis:
+    container_name: geolocationandpositiondbgis
+    hostname: geolocationandpositiondbgis
+    image: kartoza/postgis:12.0
+
   geolocationandposition.service:
-    image: ${DOCKER_REGISTRY-}geolocationandpositionservice
+    container_name: geolocationandpositionservice
+    hostname: geolocationandpositionservice
+    image: geolocationandpositionservice
     build:
       context: .
       dockerfile: src/Services/GeoLocationAndPosition.Service/Dockerfile
 
   geolocationandposition.webapp:
-    image: ${DOCKER_REGISTRY-}geolocationandpositionwebapp
+    container_name: geolocationandpositionwebapp
+    hostname: geolocationandpositionwebapp
+    image: geolocationandpositionwebapp
     build:
       context: .
       dockerfile: src/Apps/GeoLocationAndPosition.WebApp/Dockerfile

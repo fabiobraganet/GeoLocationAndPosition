@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/Services/GeoLocationAndPosition.Service/GeoLocationAndPosition.Service.csproj", "src/Services/GeoLocationAndPosition.Service/"]
 COPY ["src/Libraries/GeoLocationAndPosition.Application/GeoLocationAndPosition.Application.csproj", "src/Libraries/GeoLocationAndPosition.Application/"]
+COPY ["src/Libraries/GeoLocationAndPosition.DTO/GeoLocationAndPosition.DTO.csproj", "src/Libraries/GeoLocationAndPosition.DTO/"]
 COPY ["src/Libraries/GeoLocationAndPosition.Data/GeoLocationAndPosition.Data.csproj", "src/Libraries/GeoLocationAndPosition.Data/"]
 COPY ["src/Libraries/GeoLocationAndPosition.Domain/GeoLocationAndPosition.Domain.csproj", "src/Libraries/GeoLocationAndPosition.Domain/"]
 RUN dotnet restore "src/Services/GeoLocationAndPosition.Service/GeoLocationAndPosition.Service.csproj"
